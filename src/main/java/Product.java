@@ -3,6 +3,7 @@
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Component
 @Entity
@@ -10,13 +11,21 @@ import javax.persistence.*;
 
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "title")
     private String title;
     @Column(name = "price")
     private int price;
+
+    @ManyToMany
+    @JoinTable(
+            name = "basket",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "buyer_id")
+    )
+    private List<Buyers> buyers;
 
     public Product() {
 
@@ -44,5 +53,17 @@ public class Product {
 
     public int getPrice() {
         return price;
+    }
+
+    public List<Buyers> getBuyers() {
+        return buyers;
+    }
+
+    public void setBuyers(List<Buyers> buyers) {
+        this.buyers = buyers;
+    }
+
+    public Product(List<Buyers> buyers) {
+        this.buyers = buyers;
     }
 }

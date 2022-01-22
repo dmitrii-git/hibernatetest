@@ -12,5 +12,9 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
+        <mapping class="Product"/>
+        <mapping class="Buyers"/>
+
+
     </session-factory>
 </hibernate-configuration>
